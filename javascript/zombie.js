@@ -1,7 +1,8 @@
 class Zombie extends Human {
-    constructor(x, y) {
+    constructor(x, y,direction) {
         super(x, y);
-        this.width = 100;
+        this.direction = direction || 'right';
+        this.width = 140;
         this.height = 170;
         this.life = 100;
         this.spriteSheetJSON = [
@@ -32,10 +33,10 @@ class Zombie extends Human {
         this.speed = 5;
         this.jumpFactor = 25;
         this.defStateName = 'Walk';
-        this.defElem= 'zobmie-1';
-        this.xMovementSpeed = 10;
+        this.defElem= 'zombie-1';
+        this.xMovementSpeed = 0.005;
         this.jumpSpeed = this.jumpFactor;
-        this.update('Walk','zombie-2');
+        this.update('Walk','zombie-1');
     }
 
 
