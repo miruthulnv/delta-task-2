@@ -2,7 +2,7 @@ class Player extends Human {
     constructor(x, y) {
         super(x, y);
         this.playerSize = 200;
-        this.life = 10;
+        this.life = 100;
         this.direction = 'right';
         this.hasGun = true;
         this.spriteSheetJSON = [

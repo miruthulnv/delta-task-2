@@ -51,7 +51,7 @@ class Game {
                     zombie.move(zombie.direction);
                     life.textContent = this.player.life;
                     score.textContent = this.points;
-                    if (this.player.life<0){
+                    if (this.player.life<1){
                         this.gameIsPaused = true;
                         this.refreshScreen(true);
                         gameOver.parentNode.parentNode.style.visibility = 'visible';
