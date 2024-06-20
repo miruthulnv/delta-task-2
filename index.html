@@ -10,15 +10,33 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-       <div class="top-controls">
-           <div class="btn pause--btn">
-               Pause
-           </div>
-           <div>
-               Life: <span class="life">100</span>
-           </div>
-       </div>
-        <canvas></canvas>
+<div class="top-controls">
+    <div class="btn pause--btn">
+        <img src="./assets/image/pause.svg" alt="settings">
+    </div>
+    <div>
+        Life: <span class="life">100</span>
+    </div>
+    <div>
+        Score: <span class="score">0</span>
+    </div>
+    <div class="btn settings--btn">
+        <img src="./assets/image/settings.svg" alt="settings">
+    </div>
+</div>
+<div class="cloud" id="cloud-img-1">
+    <img src = "assets/image/backdrop/cloud.png" alt = "cloud">
+</div>
+<div class="cloud" id="cloud-img-2">
+    <img src = "assets/image/backdrop/cloud.png" alt = "cloud" >
+</div>
+<canvas></canvas>
+<div id="bottom-bar--1">
+    <img src="assets/image/backdrop/bottom%20bar.jpg" alt="bottom-bar">
+</div>
+<div id="bottom-bar--2">
+    <img src="assets/image/backdrop/bottom%20bar.jpg" alt="bottom-bar">
+</div>
 </body>
 <script src="./javascript/human.js"></script>
 <script src="./javascript/bullet.js"></script>

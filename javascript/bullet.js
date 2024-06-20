@@ -6,7 +6,7 @@ class Bullet {
         this.speed = 90;
         this.speedX = direction.x*this.speed;
         this.speedY = direction.y*this.speed;
-        this.color = 'red';
+        this.color = 'green';
         this.inMotion = false
     }
 

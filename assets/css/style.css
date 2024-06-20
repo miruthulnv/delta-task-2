@@ -1,6 +1,41 @@
+@font-face { font-family: dpcomic; src: url('../fonts/dpcomic.ttf'); }
 *{
     margin:0;
     padding:0;
-    background-color: dimgray;
+    background-color: #6FB0E3;
+    font-size: 30px;
+    font-family: dpcomic, serif;
+    user-select: none;
 }
 
+.top-controls{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cloud{
+    position: absolute;
+}
+
+#cloud-img-1{
+    top:25%;
+    left:15%;
+}
+
+#cloud-img-2{
+    top:15%;
+    right:30%;
+}
+
+#bottom-bar--1{
+    position: absolute;
+    bottom: 0;
+    left:0;
+}
+#bottom-bar--2{
+    position: absolute;
+    bottom: 0;
+    right:0;
+}

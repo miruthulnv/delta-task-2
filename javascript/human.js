@@ -65,6 +65,9 @@ class Human {
 
     //----------------PLAYER CONTROLS-----------------------//
     move(direction) {
+        if (direction==='stop'){
+            return;
+        }
         this.request = requestAnimationFrame(() => this.move(direction));
         this.x += this.xMovementSpeed * (direction === 'right' ? 1 : -1);
         this.xMovement += this.xMovementSpeed;
@@ -77,7 +80,7 @@ class Human {
             this.xMovement = 0;
             this.inMotion = false;
             cancelAnimationFrame(this.request);
-            this.update(this.defStateName, this.defElem);
+            this.update(this.stateName, this.elem);
         }
     }
 

@@ -18,10 +18,10 @@ class Player extends Human {
         this.gunImg = new Image();
         this.frameElem = 12;
         this.gunImg.src = `assets/image/game-img/${this.direction}/gun.svg`;
-        this.defStateName = 'Idle Blink';
-        this.defElem = 'player';
+        this.stateName = 'Idle Blink';
+        this.elem = 'player';
         this.speed = 10;
-        this.reflexIsOn = true;
+        this.reflexIsOn = false;
         this.bullet = undefined;
         this.activatePlayerControls();
         this.update('Idle Blink', 'player');
@@ -65,22 +65,24 @@ class Player extends Human {
 
 
     //--------------GUN CONTROLS---------------------------//
-    activateShoot() {
-        canvas.addEventListener('click', (e) => {
-            if (!this.bullet?.inMotion) {
-                const angle = Math.atan2(e.clientY - this.gunY, e.clientX - this.gunX);
-                this.bullet = new Bullet(this.gunX, this.gunY, {x: Math.cos(angle), y: Math.sin(angle)});
-                if (e.clientX > this.x) {
-                    this.reflexIsOn && this.move('left');
-                    this.direction = 'right';
-                } else if (e.clientX < this.x) {
-                    this.reflexIsOn && this.move('right');
-                    this.direction = 'left';
-                }
-                this.update('Idle Blink', 'player');
+    shootBullet(e) {
+        if (!this.bullet?.inMotion) {
+            const angle = Math.atan2(e.clientY - this.gunY, e.clientX - this.gunX);
+            this.bullet = new Bullet(this.gunX, this.gunY, {x: Math.cos(angle), y: Math.sin(angle)});
+            if (e.clientX > this.x) {
+                this.reflexIsOn && this.move('left');
+                this.direction = 'right';
+            } else if (e.clientX < this.x) {
+                this.reflexIsOn && this.move('right');
+                this.direction = 'left';
             }
-        });
+            this.update('Idle Blink', 'player');
+        }
+    }
 
+    activateShoot() {
+        this.shootBulletBound = this.shootBullet.bind(this);
+        canvas.addEventListener('click', this.shootBulletBound);
     };
 
     rotateGun() {
@@ -107,9 +109,11 @@ class Player extends Human {
     pausePlayer() {
         cancelAnimationFrame(this.jumpMotion);
         this.stopPlayerControls();
+        canvas.removeEventListener('click', this.shootBulletBound);
     }
 
     resumePlayer() {
+        this.activateShoot();
         this.activatePlayerControls();
         if (this.inMotion)
             this.jumpMotion = requestAnimationFrame(this.jump.bind(this));
