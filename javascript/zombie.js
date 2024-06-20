@@ -32,12 +32,16 @@ class Zombie extends Human {
         ];
         this.speed = 5;
         this.jumpFactor = 25;
-        this.defStateName = 'Walk';
-        this.defElem= 'zombie-1';
+        this.stateName = 'Walk';
+        this.elem= 'zombie-1';
         this.xMovementSpeed = 0.005;
         this.jumpSpeed = this.jumpFactor;
         this.update('Walk','zombie-1');
     }
 
+
+    killZombie(){
+        this.update('Dead','zombie-1');
+    }
 
 }

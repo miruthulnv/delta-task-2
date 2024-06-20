@@ -66,14 +66,16 @@ class Human {
     //----------------PLAYER CONTROLS-----------------------//
     move(direction) {
         this.request = requestAnimationFrame(() => this.move(direction));
-        this.x += this.xMovementSpeed * (direction === 'Right' ? 1 : -1);
+        this.x += this.xMovementSpeed * (direction === 'right' ? 1 : -1);
         this.xMovement += this.xMovementSpeed;
+        this.inMotion = true;
         //this.direction = direction.toLowerCase();
         // this.gunImg.src = `assets/image/game-img/${this.direction}/gun.svg`;
         // this.draw();
         if (this.xMovement >= 100) {
             this.validCtrls = ['ArrowRight', 'ArrowLeft', 'ArrowUp'];
             this.xMovement = 0;
+            this.inMotion = false;
             cancelAnimationFrame(this.request);
             this.update(this.defStateName, this.defElem);
         }
@@ -81,7 +83,7 @@ class Human {
 
     jump() {
         this.jumpMotion = requestAnimationFrame(this.jump.bind(this));
-        this.inJumpMotion = true;
+        this.inMotion = true;
         this.jumpSpeed = this.jumpSpeed - 1;
         // this.draw();
         if (this.jumpSpeed > -this.jumpFactor) {
@@ -90,8 +92,8 @@ class Human {
             this.jumpSpeed = this.jumpFactor;
             this.validCtrls = ['ArrowRight', 'ArrowLeft', 'ArrowUp'];
             cancelAnimationFrame(this.jumpMotion);
-            this.inJumpMotion = false;
-            this.update(this.defStateName, this.defElem);
+            this.inMotion = false;
+            this.update(this.stateName, this.elem);
 
         }
     }

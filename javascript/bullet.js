@@ -7,6 +7,7 @@ class Bullet {
         this.speedX = direction.x*this.speed;
         this.speedY = direction.y*this.speed;
         this.color = 'red';
+        this.inMotion = false
     }
 
     draw() {
@@ -17,7 +18,12 @@ class Bullet {
     }
 
     update() {
+        this.inMotion = true;
         this.draw();
+        if (this.y > canvas.height || this.y < 0 || this.x > canvas.width || this.x < 0) {
+            this.inMotion = false;
+            return;
+        }
         this.x = this.x + this.speedX;
         this.y = this.y + this.speedY;
         this.speedY = this.speedY + 9.8;

@@ -22,6 +22,7 @@ class Player extends Human {
         this.defElem = 'player';
         this.speed = 10;
         this.reflexIsOn = true;
+        this.bullet = undefined;
         this.activatePlayerControls();
         this.update('Idle Blink', 'player');
         // this.rotateGun();
@@ -36,7 +37,7 @@ class Player extends Human {
             if (this.validCtrls.includes('ArrowRight')) {
                 this.update('Walking', 'player');
                 this.direction = 'right'
-                this.move('Right');
+                this.move('right');
                 this.validCtrls = ['ArrowLeft', 'ArrowUp'];
             }
         }
@@ -66,16 +67,18 @@ class Player extends Human {
     //--------------GUN CONTROLS---------------------------//
     activateShoot() {
         canvas.addEventListener('click', (e) => {
-            const angle = Math.atan2(e.clientY - this.gunY, e.clientX - this.gunX);
-            this.bullet = new Bullet(this.gunX, this.gunY, {x: Math.cos(angle), y: Math.sin(angle)});
-            if (e.clientX > this.x) {
-                this.reflexIsOn && this.move('Left');
-                this.direction = 'right';
-            } else if (e.clientX < this.x) {
-                this.reflexIsOn && this.move('Right');
-                this.direction = 'left';
+            if (!this.bullet?.inMotion) {
+                const angle = Math.atan2(e.clientY - this.gunY, e.clientX - this.gunX);
+                this.bullet = new Bullet(this.gunX, this.gunY, {x: Math.cos(angle), y: Math.sin(angle)});
+                if (e.clientX > this.x) {
+                    this.reflexIsOn && this.move('left');
+                    this.direction = 'right';
+                } else if (e.clientX < this.x) {
+                    this.reflexIsOn && this.move('right');
+                    this.direction = 'left';
+                }
+                this.update('Idle Blink', 'player');
             }
-            this.update('Idle Blink', 'player');
         });
 
     };
@@ -108,7 +111,7 @@ class Player extends Human {
 
     resumePlayer() {
         this.activatePlayerControls();
-        if (this.inJumpMotion)
+        if (this.inMotion)
             this.jumpMotion = requestAnimationFrame(this.jump.bind(this));
     }
 }
