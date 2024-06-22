@@ -7,7 +7,7 @@ class Bullet {
         this.speedX = direction.x*this.speed;
         this.speedY = direction.y*this.speed;
         this.color = 'green';
-        this.inMotion = false
+        this.life = true;
     }
 
     draw() {
@@ -18,10 +18,10 @@ class Bullet {
     }
 
     update() {
-        this.inMotion = true;
         this.draw();
         if (this.y > canvas.height || this.y < 0 || this.x > canvas.width || this.x < 0) {
-            this.inMotion = false;
+            this.life = false;
+            //Remove the bullet if this condition is met
             return;
         }
         this.x = this.x + this.speedX;

@@ -9,9 +9,10 @@ class Human {
         this.hasGun = false;
         // this.spriteSheetJSON = [];
         this.jumpFactor = 25;
-        this.xMovementSpeed = 10;
+        this.xMovementSpeed = 100;
         this.jumpSpeed = this.jumpFactor;
         this.xMovement = 0;
+        this.xPos = this.x;
         this.frame = 0;
         this.playerImg = [];
         this.gunImg = new Image();
@@ -82,6 +83,25 @@ class Human {
             cancelAnimationFrame(this.request);
             this.update(this.stateName, this.elem);
         }
+    }
+    moveArcade(direction) {
+        // if (direction==='stop'){
+        //     return;
+        // }
+        // this.request = requestAnimationFrame(() => this.moveAcrade(direction));
+        this.x += this.xMovementSpeed * (direction === 'right' ? 1 : -1);
+        this.xPos += this.xMovementSpeed;
+        // this.inMotion = true;
+        //this.direction = direction.toLowerCase();
+        // this.gunImg.src = `assets/image/game-img/${this.direction}/gun.svg`;
+        // this.draw();
+        // if (this.xMovement >= 100) {
+        //     this.validCtrls = ['ArrowRight', 'ArrowLeft', 'ArrowUp'];
+        //     this.xMovement = 0;
+        //     this.inMotion = false;
+        //     // cancelAnimationFrame(this.request);
+            this.update(this.stateName, this.elem);
+        // }
     }
 
     jump() {

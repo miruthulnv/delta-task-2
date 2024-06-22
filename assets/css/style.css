@@ -2,10 +2,11 @@
 *{
     margin:0;
     padding:0;
-    background-color: #6FB0E3;
+    background-color: black;
     font-size: 30px;
     font-family: dpcomic, serif;
     user-select: none;
+    color: white;
 }
 
 .top-controls{
@@ -13,6 +14,21 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    margin: 25px 0 25px 0;
+}
+
+.game{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas{
+    /*background-color: red;*/
+    /*background-image : url('../image/game-background.png');*/
+    border: 1px solid black;
 }
 
 .cloud{

@@ -9,6 +9,10 @@ class Game {
         this.playerHealthFactor = 10;
         this.points = 0;
         this.tempCounter = 0;
+        this.bgPos = 1250;
+        this.bg = new Image();
+        this.bg.src = './assets/image/game-background.png';
+        this.allElemOtherThanPlayer = [...this.zombies, this.bg]
         this.activatePauseGameBtn();
         this.refreshScreen();
         this.pushZombiesToScreen();
@@ -37,13 +41,15 @@ class Game {
         } else {
             this.I50 = setInterval(() => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                console.log(`bgPos: ${this.bgPos}`)
+                ctx.drawImage(this.bg, this.bgPos, 0, 1500, 700, 0, 0, canvas.width, canvas.height);
                 this.player.draw();
                 this.checkBulletCollision();
                 this.checkPlayerCollision();
                 this.zombies.forEach(zombie => {
                     zombie.draw(false);
                 });
-                this.player.bullet?.update();
+                this.player.drawBullets();
             }, 50);
             this.I300 = setInterval(() => {
                 this.zombies.forEach(zombie => {
@@ -51,13 +57,12 @@ class Game {
                     zombie.move(zombie.direction);
                     life.textContent = this.player.life;
                     score.textContent = this.points;
-                    if (this.player.life<1){
+                    if (this.player.life < 1) {
                         this.gameIsPaused = true;
                         this.refreshScreen(true);
                         gameOver.parentNode.parentNode.style.visibility = 'visible';
                         gameOver.textContent = `Game Over.. Your Score is ${this.points}..
                         Press F5 to restart the game..`;
-
                     }
                 });
             }, 200);
@@ -94,23 +99,37 @@ class Game {
     }
 
     checkBulletCollision() {
-        this.zombies.forEach((zombie, zombieIndex) => {
-            if (this.player.bullet) {
-                const bullet = this.player.bullet;
+        for (let zombieIndex = 0; zombieIndex < this.zombies.length; zombieIndex++) {
+            const zombie = this.zombies[zombieIndex];
+            for (let bulletIndex = 0; bulletIndex < this.player.bullet?.length; bulletIndex++) {
+                const bullet = this.player.bullet[bulletIndex];
                 const distance = Math.sqrt((zombie.x - bullet.x) ** 2 + (zombie.y - bullet.y) ** 2);
                 if (distance < zombie.width) {
                     canvas.removeEventListener('click', this.player.shootBulletBound);
                     this.points += 10;
                     zombie.update('Dead', 'zombie-1');
                     setTimeout(() => {
-                        this.zombies.splice(zombieIndex, 1)
+                        this.zombies.splice(zombieIndex, 1);
                         this.player.activateShoot();
-                    }, 800)
+                    }, 100);
                     // console.log(`☠ Zombie with ID:${zombieIndex} has been killed ☠`);
-                    this.player.bullet = null;
+                    bullet.life = false;
+                    break;
                 }
             }
-        });
+        }
+
+    }
+
+    moveBG(direction){
+        if (direction === 'right') {
+            if (this.bgPos >= 0)
+            this.bgPos -= this.player.xMovementSpeed;
+        }
+        if (direction === 'left') {
+            if (this.bgPos <= 2500)
+                this.bgPos += this.player.xMovementSpeed;
+        }
     }
 
     checkPlayerCollision() {
