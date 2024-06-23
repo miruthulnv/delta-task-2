@@ -2,16 +2,17 @@
     visibility: hidden;
     position: fixed;
     z-index: 1;
-    left: 0;
+    left: 25%;
     top: 0;
-    width: 100%;
+    width: 50%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0,0,0,0.4);
+
 }
 
 .modal-content {
     background-color: #fefefe;
+    opacity: 70%;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -20,8 +21,25 @@
     animation-name: fadeIn;
     animation-duration: 0.4s;
 }
-.modal-content > *{
+.modal-content  *{
     background-color: #fefefe;
+    color: black;
+    text-align: center;
+}
+
+.the-og-content  input{
+    margin: 10px;
+}
+.the-og-content > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top:10px;
+}
+
+.save{
+    margin-top: 30px;
+    padding: 10px
 }
 @keyframes fadeIn {
     from {opacity: 0;}

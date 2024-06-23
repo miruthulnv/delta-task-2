@@ -5,6 +5,7 @@ class Zombie extends Human {
         this.width = 140;
         this.height = 170;
         this.life = 100;
+        this.nearPlayer = false;
         this.spriteSheetJSON = [
             {elem: 'zombie-3', state: 'Attack', len: 6,},
             {elem: 'zombie-3', state: 'Dead', len: 8,},
@@ -34,14 +35,10 @@ class Zombie extends Human {
         this.jumpFactor = 25;
         this.stateName = 'Walk';
         this.elem= 'zombie-1';
-        this.xMovementSpeed = 0.005;
+        this.xMovementSpeed = 0.1;
         this.jumpSpeed = this.jumpFactor;
         this.update('Walk','zombie-1');
     }
 
-
-    killZombie(){
-        this.update('Dead','zombie-1');
-    }
 
 }

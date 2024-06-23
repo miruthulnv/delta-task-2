@@ -4,6 +4,7 @@ class Human {
         this.width = 200;
         this.x = x;
         this.y = y;
+        this.originalX = this.x + 1250;
         this.speed = 5;
         this.life = 100;
         this.hasGun = false;
@@ -26,6 +27,7 @@ class Human {
             console.error(`state : ${stateName} not found in spriteSheetJSON of ${elem}`);
             console.log(this.spriteSheetJSON)
         }
+        this.lastUpdatedDirection = this.direction;
         this.frame = 0;
         this.playerImg = [];
         this.frameElem = currentState.len;
@@ -60,29 +62,34 @@ class Human {
         if (incFrame) this.frame++;
     }
 
-    update(stateName, elem) {
-        this.spriteSheet(stateName, elem);
+    update(stateName, elem,direction = this.direction) {
+        if (this.currentState !== stateName || direction!==this.lastUpdatedDirection ){
+        this.currentState = stateName;
+        this.currentElem = elem;
+        this.spriteSheet(stateName, elem);}
     }
 
     //----------------PLAYER CONTROLS-----------------------//
-    move(direction) {
+    move(direction,dist = 10) {
         if (direction==='stop'){
-            return;
+            console.log('stopped')
+            cancelAnimationFrame(this.request);
         }
+        else{
         this.request = requestAnimationFrame(() => this.move(direction));
         this.x += this.xMovementSpeed * (direction === 'right' ? 1 : -1);
         this.xMovement += this.xMovementSpeed;
-        this.inMotion = true;
+        // this.inMotion = true;
         //this.direction = direction.toLowerCase();
         // this.gunImg.src = `assets/image/game-img/${this.direction}/gun.svg`;
         // this.draw();
-        if (this.xMovement >= 100) {
+        if (this.xMovement >= dist) {
             this.validCtrls = ['ArrowRight', 'ArrowLeft', 'ArrowUp'];
             this.xMovement = 0;
-            this.inMotion = false;
+            // this.inMotion = false;
             cancelAnimationFrame(this.request);
-            this.update(this.stateName, this.elem);
-        }
+            // this.update(this.stateName, this.elem);
+        }}
     }
     moveArcade(direction) {
         // if (direction==='stop'){
