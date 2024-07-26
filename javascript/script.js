@@ -2,7 +2,6 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const life = document.querySelector('.life');
 const score = document.querySelector('.score');
-const gameOver = document.querySelector('.game--over--modal');
 const settings = document.querySelector('.settings--btn');
 
 canvas.width = 1500;

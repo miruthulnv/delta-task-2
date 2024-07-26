@@ -162,10 +162,10 @@ class Player extends Human {
             10,
             'green'));
         if (e.clientX > this.x) {
-            this.reflexIsOn && this.move('left');
+            this.reflexIsOn && this.move('left',2);
             this.direction = 'right';
         } else if (e.clientX < this.x) {
-            this.reflexIsOn && this.move('right');
+            this.reflexIsOn && this.move('right',2);
             this.direction = 'left';
         }
         this.update('Idle Blink', 'player');

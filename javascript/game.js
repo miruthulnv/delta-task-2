@@ -68,8 +68,12 @@ class Game {
                     life.textContent = this.player.life;
                     score.textContent = this.points;
                     if (this.player.life < 1) {
+                        this.player.pausePlayer();
                         this.gameIsPaused = true;
                         this.refreshScreen(true);
+                        this.player.life = 0;
+                        const gameOver = document.querySelector('.game--over--modal');
+                        console.log(gameOver)
                         gameOver.parentNode.parentNode.style.visibility = 'visible';
                         gameOver.textContent = `Game Over.. Your Score is ${this.points}..
                         Press F5 to restart the game..`;
@@ -208,44 +212,44 @@ class Game {
             <h2 style="text-align: center; font-size: 40px;">Difficulty</h2>   
             <div>
                 <input type="radio" id="easy" name="difficulty" value="Easy">
-<label for="easy">Easy</label><br>
-<input type="radio" id="medium" name="difficulty" value="Medium" checked>
-<label for="medium">Medium</label><br>
-<input type="radio" id="hard" name="difficulty" value="Hard">
-<label for="hard">Hard</label><br>
-<input type="radio" id="extreme" name="difficulty" value="Extreme">
-<label for="extreme">Extreme</label><br>
-            </div>
-            <br>
-            <h2 style="text-align: center; font-size: 40px;">Gravity</h2>
-             <div>
-                <input type="radio" id="earth" name="gravity" value="Earth" checked>
-<label for="earth">Earth</label><br>
-<input type="radio" id="moon" name="gravity" value="Moon">
-<label for="moon">Moon</label><br>
-<input type="radio" id="space" name="gravity" value="Space">
-<label for="space">Space</label><br>
-            </div>
-            <br>
-            <h2 style="text-align: center; font-size: 40px;">Recoil</h2>
-<div>
-   <input type="radio" id="yes" name="recoil" value="Yes">
-   <label for="yes">Yes</label><br>
-   <input type="radio" id="no" name="recoil" value="No" checked>
-   <label for="no">No</label><br>
-</div>
-<br>
-            <h2 style="text-align: center; font-size: 40px;">Player Speed</h2>
-                <div>
-                   <input type="radio" id="slow" name="speed" value="Slow">
-<label for="slow">Slow</label><br>
-<input type="radio" id="medium" name="speed" value="Medium" checked>
-<label for="medium">Medium</label><br>
-<input type="radio" id="fast" name="speed" value="Fast">
-<label for="fast">Fast</label><br>
-                </div>    
-          <p style="color:red; font-size: 10px; font-family: 'Open Sans', sans-serif;">Note: Please ensure you have checked all the options only then will the save button work</p>
-                <button class="save">Save</button> 
+                <label for="easy">Easy</label><br>
+                    <input type="radio" id="medium" name="difficulty" value="Medium" checked>
+                    <label for="medium">Medium</label><br>
+                    <input type="radio" id="hard" name="difficulty" value="Hard">
+                    <label for="hard">Hard</label><br>
+                    <input type="radio" id="extreme" name="difficulty" value="Extreme">
+                    <label for="extreme">Extreme</label><br>
+                                </div>
+                          <br>
+                                <h2 style="text-align: center; font-size: 40px;">Gravity</h2>
+                                 <div>
+                                    <input type="radio" id="earth" name="gravity" value="Earth" checked>
+                    <label for="earth">Earth</label><br>
+                    <input type="radio" id="moon" name="gravity" value="Moon">
+                    <label for="moon">Moon</label><br>
+                    <input type="radio" id="space" name="gravity" value="Space">
+                    <label for="space">Space</label><br>
+                                </div>
+                                <br>
+                                <h2 style="text-align: center; font-size: 40px;">Recoil</h2>
+                    <div>
+                       <input type="radio" id="yes" name="recoil" value="Yes">
+                       <label for="yes">Yes</label><br>
+                       <input type="radio" id="no" name="recoil" value="No" checked>
+                       <label for="no">No</label><br>
+                    </div>
+                    <br>
+                                <h2 style="text-align: center; font-size: 40px;">Player Speed</h2>
+                                    <div>
+                                       <input type="radio" id="slow" name="speed" value="Slow">
+                    <label for="slow">Slow</label><br>
+                    <input type="radio" id="medium" name="speed" value="Medium" checked>
+                    <label for="medium">Medium</label><br>
+                    <input type="radio" id="fast" name="speed" value="Fast">
+                    <label for="fast">Fast</label><br>
+                                    </div>    
+                              <p style="color:red; font-size: 10px; font-family: 'Open Sans', sans-serif;">Note: Please ensure you have checked all the options only then will the save button work</p>
+                                    <button class="save">Save</button> 
 `
             const saveBtn = document.querySelector('.save');
             saveBtn.addEventListener('click', () => {
@@ -271,6 +275,7 @@ class Game {
                 if (recoil === 'Yes') this.player.reflexIsOn = true;
                 if (recoil === 'No') this.player.reflexIsOn = false;
                 settingsModal.style.visibility = 'hidden';
+                modalContent.innerHTML = '<p class="game--over--modal"></p>';
             });
         });
     }
